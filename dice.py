@@ -6,7 +6,7 @@ import time
 money_amount = 0
 player_name = ''
 
-# players = {player_name: money_amount}
+players = {}
 
 
 
@@ -102,7 +102,7 @@ def player(line):
     while True:
         try:
 
-            current_line = input(line).upper().strip()
+            current_line = input(line).upper()
             if not current_line.isalpha() or len(current_line) < 3:
                 raise ValueError
             break
@@ -193,8 +193,8 @@ def bet(money_amount):
             # your_sum = sum_roll_result(current_roll)
 
             print('''
-    ***********************************************************************
-    ***********************************************************************
+***********************************************************************
+***********************************************************************
 
             ''')
 
@@ -409,9 +409,11 @@ while True:
 
     elif choice == "YES" or choice == "Y":
         player_name = player("ENTER YOUR NAME: ")
+        players[player_name] = 0
         deposit = is_positive('PLEASE DEPOSIT AMOUNT OF MONEY TO PLAY WITH. ONLY INTEGER NUMBERS, NO COINS ')
         if deposit:
             money_amount += int(deposit)
+            players[player_name] += int(deposit)
             break
 
 
@@ -442,6 +444,8 @@ if still_play:
 if still_play:
     money = check_result(sum_left_dices, sum_left_computer_dices, left_dices, left_computer_dices, current_bet)
     money_amount += money
+    players[player_name] = money_amount
+    
 
 while True:
     menu = input('''
@@ -460,10 +464,12 @@ while True:
             sum_left_dices, sum_left_computer_dices, left_dices, left_computer_dices, current_bet = bet(money_amount)
             money = check_result(sum_left_dices, sum_left_computer_dices, left_dices, left_computer_dices, current_bet)
             money_amount += money
+            players[player_name] += money_amount
         else:
             print("NO MONEY IN YOUR ACCOUNT !")
     elif menu == "C":
-        print(f"======     ${money_amount} IN YOUR ACCOUNT      =====")
+        print(f"======       {''.join([key for key in players.keys()])} YOU HAVE ${money_amount} IN YOUR ACCOUNT      =====")
+
     elif menu == "Q":
         print("BYE, YOU WILL COME BACK AGAIN !")
         break
@@ -472,12 +478,14 @@ while True:
             withdraw = is_positive("MAKE YOUR WITHDRAW. ONLY INTEGER NUMBERS, NO COINS: ")
             if withdraw:
                 money_amount -= withdraw
-                print(F"YOU SUCCESSFULLY WITHDRAW ${withdraw}\n=====     TOAL MONEY: ${money_amount}     =====")
+              
+                print(F" {''.join([key for key in players.keys()])} YOU SUCCESSFULLY WITHDRAW ${withdraw}\n=====       {''.join([key for key in players.keys()])} YOU HAVE TOAL MONEY: ${money_amount}       =====")
         else:
             print("NO MONEY IN YOUR ACCOUNT !")
     elif menu == "D":
         if player_name == '':
            player_name = player("ENTER YOUR NAME: ") 
+           players[player_name] = 0
         else:
             new_deposit = is_positive('PLEASE DEPOSIT AMOUNT OF MONEY TO PLAY WITH. ONLY INTEGER NUMBERS, NO COINS ')
             money_amount += new_deposit
