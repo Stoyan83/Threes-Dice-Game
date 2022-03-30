@@ -464,7 +464,6 @@ while True:
             print("NO MONEY IN YOUR ACCOUNT !")
     elif menu == "C":
         print(f"======     ${money_amount} IN YOUR ACCOUNT      =====")
-        print(players)
     elif menu == "Q":
         print("BYE, YOU WILL COME BACK AGAIN !")
         break
