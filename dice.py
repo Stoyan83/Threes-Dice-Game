@@ -1,14 +1,10 @@
 import random
 import time
 
-
-
 money_amount = 0
 player_name = ''
 
 players = {}
-
-
 
 s = "+ - - - - +"
 m1 = "|  o   o  |"
@@ -43,17 +39,17 @@ def ndice(*ns):
 def roll():
     roll_result = []
     for i in range(5):
-        roll = random.randint(1, 6)
+        roll = random.randint(1, 2)
         roll_result.append(roll)
     return roll_result
 
 
-# def computer_roll(): 
-#     roll_result = []
-#     for i in range(5):
-#         roll = random.randint(1,3)
-#         roll_result.append(roll)
-#     return roll_result
+def computer_roll(): 
+    roll_result = []
+    for i in range(5):
+        roll = random.randint(1,1)
+        roll_result.append(roll)
+    return roll_result
 
 def next_roll(dices):
     roll_result = []
@@ -182,7 +178,7 @@ def bet(money_amount):
 
             # bet = is_positive("MAKE YOUR BET. ONLY INTEGER NUMBERS, NO COINS: ")
             roll_results = roll()
-            computer_roll_results = roll()
+            computer_roll_results = computer_roll()
 
             print("***********************************************************************")
 
@@ -343,7 +339,7 @@ def check_result(sum_left_dices, sum_left_computer_dices, left_dices, left_compu
         print(f"YOU LOSE ${current_bet}")
         money -= current_bet
         # print(F"TOTAL MONEY IN YOUR ACCOUT: ${money}")
-    else:
+    elif sum_left_computer_dices == sum_left_dices:
         print("THE SCORE IS TIED, THERE WILL BE ONE MORE ROLL OF THE FIVE DICES")
         time.sleep(2)
         print("***********************************************************************")
@@ -352,6 +348,7 @@ def check_result(sum_left_dices, sum_left_computer_dices, left_dices, left_compu
         print("Your turn ...")
         time.sleep(1)
         dice_faces = ndice(*roll_results)
+        current_roll = roll_results
 
         print('''
 ***********************************************************************
@@ -367,28 +364,32 @@ def check_result(sum_left_dices, sum_left_computer_dices, left_dices, left_compu
         time.sleep(1)
         dice_faces = ndice(*computer_roll_results)
         current_computer_roll = computer_roll_results
-        if left_computer_dices == [6, 6, 6, 6, 6]:
+
+
+       
+        if sum_roll_result(current_computer_roll) == 30:
             print("COMPUTER SHOOT THE MOON WITH [6][6][6][6][6]")
             print(f"YOU LOSE ${current_bet}")
             money -= current_bet
-            # print(F"TOTAL MONEY IN YOUR ACCOUT: ${money}")
-        elif left_dices == [6, 6, 6, 6, 6]:
+
+        elif sum_roll_result(current_roll) == 30:
             print("YOU SHOOT THE MOON WITH [6][6][6][6][6]")
             print(f"YOU WIN ${current_bet * 2}")
-            # money += current_bet
-            # print(F"TOTAL MONEY IN YOUR ACCOUT: ${money}")
-        elif sum_left_computer_dices > sum_left_dices:
+
+        elif sum_roll_result(current_roll) < sum_roll_result(current_computer_roll):
             print(f"YOU WIN ${current_bet * 2}")
             money += current_bet
-            # print(F"TOTAL MONEY IN YOUR ACCOUT: ${money}")
-        elif sum_left_computer_dices < sum_left_dices:
+
+        elif sum_roll_result(current_computer_roll) < sum_roll_result(current_roll):
             print(f"YOU LOSE ${current_bet}")
             money -= current_bet
-            # print(F"TOTAL MONEY IN YOUR ACCOUT: ${money}")
+        
         else:
+            # sum_left_computer_dices == sum_left_dices:
             print(f"THE SCORE IS TIED AGAIN. THERE IS NO WINNER U TAKE BACK ${current_bet}")
 
     return money
+
 
 
 still_play = True
