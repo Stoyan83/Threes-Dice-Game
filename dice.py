@@ -1,6 +1,6 @@
 import random
 import time
-from turtle import left
+
 
 money_amount = 0
 player_name = ''
