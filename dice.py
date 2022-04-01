@@ -61,9 +61,9 @@ def roll():
 #         roll_result.append(roll)
 #     return roll_result
 
-def next_roll(dices):
+def next_roll(dice):
     roll_result = []
-    for _ in range(dices):
+    for _ in range(dice):
         roll = random.randint(1, 6)
         roll_result.append(roll)
     return roll_result
@@ -175,8 +175,8 @@ def bet(money_amount):
     current_money = money_amount
     computer_turns = 4
     number_of_rolls = 4
-    left_dices = []
-    left_computer_dices = []
+    left_dice = []
+    left_computer_dice = []
     play = True
     while True:
         if not play:
@@ -224,73 +224,73 @@ def bet(money_amount):
             ''')
 
             while True:
-                if current_computer_roll + left_computer_dices == [6, 6, 6, 6, 6]:
+                if current_computer_roll + left_computer_dice == [6, 6, 6, 6, 6]:
                     # play = False
-                    left_computer_dices = [6, 6, 6, 6, 6]
-                    return sum_roll_result(left_dices), sum_roll_result(
-                    left_computer_dices), left_dices, left_computer_dices , current_bet
-                elif current_roll + left_dices == [6, 6, 6, 6, 6]:
+                    left_computer_dice = [6, 6, 6, 6, 6]
+                    return sum_roll_result(left_dice), sum_roll_result(
+                    left_computer_dice), left_dice, left_computer_dice , current_bet
+                elif current_roll + left_dice == [6, 6, 6, 6, 6]:
                     # play = False
-                    left_dices = [6, 6, 6, 6, 6]
-                    return sum_roll_result(left_dices), sum_roll_result(
-                    left_computer_dices), left_dices, left_computer_dices, current_bet
+                    left_dice = [6, 6, 6, 6, 6]
+                    return sum_roll_result(left_dice), sum_roll_result(
+                    left_computer_dice), left_dice, left_computer_dice, current_bet
                    
                 if number_of_rolls > 1:
                     current_command = command("MAKE YOUR CHOICE: ")
                 if current_command == "D" or current_command == "DONE":
 
                  
-                    if sum_roll_result(current_computer_roll + left_computer_dices) >= sum_roll_result(
-                            current_roll + left_dices) and \
-                            sum_roll_result(left_computer_dices) + sum_roll_result(current_computer_roll) > 5:
+                    if sum_roll_result(current_computer_roll + left_computer_dice) >= sum_roll_result(
+                            current_roll + left_dice) and \
+                            sum_roll_result(left_computer_dice) + sum_roll_result(current_computer_roll) > 5:
                         try:
                             while computer_turns > 0:
                                 computer_turns -= 1
-                                new_dices, aside_computer = remove_smallest(current_computer_roll)
-                                left_computer_dices += aside_computer
+                                new_dice, aside_computer = remove_smallest(current_computer_roll)
+                                left_computer_dice += aside_computer
 
-                                next_computer = next_roll(len(new_dices))
+                                next_computer = next_roll(len(new_dice))
                                 current_computer_roll = next_computer
                                 if computer_turns > 1:
                                     print("***********************************************************************")
                                     print("Computer's turn ...")
                                 time.sleep(1)
                                 dice_faces = ndice(*next_computer)
-                                if sum_roll_result(current_computer_roll + left_computer_dices) < sum_roll_result(
-                                        current_roll + left_dices):
-                                    print("=============         COMPUTER'S DICES     ============")
-                                    ndice_aside(*left_computer_dices)
+                                if sum_roll_result(current_computer_roll + left_computer_dice) < sum_roll_result(
+                                        current_roll + left_dice):
+                                    print("=============         COMPUTER'S DICE     ============")
+                                    ndice_aside(*left_computer_dice)
                 
                                     print("***********************************************************************")
                                     print(
                                         f"======                  YOU HAVE {sum_roll_result(current_roll)} POINTS AT THE MOMENT !        ======")
                                     print(
-                                        f"=====           COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dices + current_computer_roll)} POINTS !         ======")
+                                        f"=====           COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dice + current_computer_roll)} POINTS !         ======")
                                     break
-                                if sum_roll_result(current_computer_roll + left_computer_dices) >= sum_roll_result(
-                                        current_roll + left_dices):
+                                if sum_roll_result(current_computer_roll + left_computer_dice) >= sum_roll_result(
+                                        current_roll + left_dice):
 
-                                    print("=============         COMPUTER'S DICES     ============")
-                                    ndice_aside(*left_computer_dices)
+                                    print("=============         COMPUTER'S DICE     ============")
+                                    ndice_aside(*left_computer_dice)
                 
                                     print("***********************************************************************")
                                     print(
-                                        f"======                  YOU HAVE {sum_roll_result(left_dices + current_roll)} POINTS !                     ======")
+                                        f"======                  YOU HAVE {sum_roll_result(left_dice + current_roll)} POINTS !                     ======")
                                     print(
-                                        f"=====           COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dices + current_computer_roll)} POINTS !        ======")
+                                        f"=====           COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dice + current_computer_roll)} POINTS !        ======")
                         except ValueError:
                             pass
 
-                    left_dices += current_roll
-                    left_computer_dices += current_computer_roll
+                    left_dice += current_roll
+                    left_computer_dice += current_computer_roll
                     
                 
                  
                     play = False
                     break
                 if number_of_rolls == 0:
-                    left_dices += current_roll
-                    left_computer_dices += current_computer_roll
+                    left_dice += current_roll
+                    left_computer_dice += current_computer_roll
                     play = False
 
                     break
@@ -303,7 +303,7 @@ def bet(money_amount):
                                             "TYPE NUMBER OF THE DICE YOU WANT TO SET ASIDE, COUNTING BACKWARDS FROM RIGHT TO LEFT: ")
 
                     set_aside = current_roll[::-1].pop(aside_dice - 1)
-                    left_dices.append(int(set_aside))
+                    left_dice.append(int(set_aside))
 
                     
                    
@@ -315,30 +315,30 @@ def bet(money_amount):
                     dice_faces = ndice(*next)
                     current_roll = next
 
-                    ndice_aside(*left_dices)
+                    ndice_aside(*left_dice)
 
                     print("*********************************************************")
                     print("*********************************************************")
 
-                    if sum_roll_result(left_computer_dices) + sum_roll_result(current_computer_roll) > 5:
-                        new_dices, aside_computer = remove_smallest(current_computer_roll)
-                        left_computer_dices += aside_computer
+                    if sum_roll_result(left_computer_dice) + sum_roll_result(current_computer_roll) > 5:
+                        new_dice, aside_computer = remove_smallest(current_computer_roll)
+                        left_computer_dice += aside_computer
 
-                        next_computer = next_roll(len(new_dices))
+                        next_computer = next_roll(len(new_dice))
                         print("Computer's turn ...")
                         time.sleep(1)
                         dice_faces = ndice(*next_computer)
                         current_computer_roll = next_computer
                         computer_turns -= 1
 
-                        if len(left_computer_dices) != 5 and len(left_computer_dices) >= 1:
-                            ndice_aside(*left_computer_dices)
+                        if len(left_computer_dice) != 5 and len(left_computer_dice) >= 1:
+                            ndice_aside(*left_computer_dice)
                     
                     
                         print(
-                            f"======                  YOU HAVE {sum_roll_result(left_dices + current_roll)} POINTS AT THE MOMENT !                  ======")
+                            f"======                  YOU HAVE {sum_roll_result(left_dice + current_roll)} POINTS AT THE MOMENT !                  ======")
                         print(
-                            f"===== COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dices + current_computer_roll)} POINTS AND WAITING FOR YOUR TURNS !  ======")
+                            f"===== COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dice + current_computer_roll)} POINTS AND WAITING FOR YOUR TURNS !  ======")
                         if number_of_rolls > 0:
                             print('''
                     ***********************************************************************
@@ -349,52 +349,47 @@ def bet(money_amount):
                     ''')
                     if number_of_rolls == 0:
                         if computer_turns != 0:
-                            print("=============         COMPUTER'S DICES     ============")
-                            ndice_aside(*left_computer_dices + current_computer_roll)
+                            print("=============         COMPUTER'S DICE     ============")
+                            ndice_aside(*left_computer_dice + current_computer_roll)
                   
                      
                         print("***********************************************************************")
                         print(
-                            f"======                  YOU HAVE {sum_roll_result(left_dices + current_roll)} POINTS !                     ======")
+                            f"======                  YOU HAVE {sum_roll_result(left_dice + current_roll)} POINTS !                     ======")
                         print(
-                            f"======           COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dices + current_computer_roll)} POINTS !        ======")
+                            f"======           COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dice + current_computer_roll)} POINTS !        ======")
 
-                    # if sum_roll_result(left_computer_dices) + sum_roll_result(current_computer_roll) <= 5:
-                        
-                    #         ndice_aside(*left_computer_dices)
-                    #         # if computer_turns == 0:
-                    #         ndice(*computer_roll_results)
-    return sum_roll_result(left_dices), sum_roll_result(
-        left_computer_dices), left_dices, left_computer_dices, current_bet
+    return sum_roll_result(left_dice), sum_roll_result(
+        left_computer_dice), left_dice, left_computer_dice, current_bet
 
 
-def check_result(sum_left_dices, sum_left_computer_dices, left_dices, left_computer_dices, current_bet):
+def check_result(sum_left_dice, sum_left_computer_dice, left_dice, left_computer_dice, current_bet):
     money = 0
 
-    if left_dices == [6, 6, 6, 6, 6]:
+    if left_dice == [6, 6, 6, 6, 6]:
 
         print("=====     YOU SHOOT THE MOON WITH [6][6][6][6][6]              =====")
         print(f"======                  YOU WIN ${current_bet * 2}                            ======")
         money += current_bet
         
 
-    elif left_computer_dices == [6, 6, 6, 6, 6]:
+    elif left_computer_dice == [6, 6, 6, 6, 6]:
         print("=====     COMPUTER SHOOT THE MOON WITH [6][6][6][6][6]           =====")
         print(f"======                  YOU LOSE ${current_bet}                             ======")
         money -= current_bet
     
 
     else:
-        if sum_left_computer_dices > sum_left_dices:
+        if sum_left_computer_dice > sum_left_dice:
             print(f"======                          YOU WIN ${current_bet * 2}                       ======")
             money += current_bet
     
-        elif sum_left_computer_dices < sum_left_dices:
+        elif sum_left_computer_dice < sum_left_dice:
             print(f"======                  YOU LOSE ${current_bet}                              ======")
             money -= current_bet
         
-        elif sum_left_computer_dices == sum_left_dices:
-            print("THE SCORE IS TIED, THERE WILL BE ONE MORE ROLL OF THE FIVE DICES")
+        elif sum_left_computer_dice == sum_left_dice:
+            print("THE SCORE IS TIED, THERE WILL BE ONE MORE ROLL OF THE FIVE DICE")
             time.sleep(2)
             print("***********************************************************************")
             roll_results = roll()
@@ -421,12 +416,12 @@ def check_result(sum_left_dices, sum_left_computer_dices, left_dices, left_compu
 
 
         
-            if left_computer_dices == [6, 6, 6, 6, 6]:
+            if left_computer_dice == [6, 6, 6, 6, 6]:
                 print("=====     COMPUTER SHOOT THE MOON WITH [6][6][6][6][6]          =====")
                 print(f"======                  YOU LOSE ${current_bet}                             ======")
                 money -= current_bet
 
-            elif left_dices == [6, 6, 6, 6, 6]:
+            elif left_dice == [6, 6, 6, 6, 6]:
                 print("=====     YOU SHOOT THE MOON WITH [6][6][6][6][6]           =====")
                 print(f"======                  YOU WIN ${current_bet * 2}                            ======")
                 money += current_bet
@@ -494,10 +489,10 @@ PLAYER ROLL 6-6-6-6-6 ("SHOOTING THE MOON"), THEY WIN INSTANTLY WITH NO FURTHER 
 
     print(f"YOUR DEPOSIT IS: {deposit} \nTotal money: ${money_amount}")
 if still_play:
-    sum_left_dices, sum_left_computer_dices, left_dices, left_computer_dices, current_bet = bet(money_amount)
+    sum_left_dice, sum_left_computer_dice, left_dice, left_computer_dice, current_bet = bet(money_amount)
 
 if still_play:
-    money = check_result(sum_left_dices, sum_left_computer_dices, left_dices, left_computer_dices, current_bet)
+    money = check_result(sum_left_dice, sum_left_computer_dice, left_dice, left_computer_dice, current_bet)
     money_amount += money
     players[player_name] = money_amount
     
@@ -516,8 +511,8 @@ while True:
     ''').upper().strip()
     if menu == "B":
         if money_amount > 0:
-            sum_left_dices, sum_left_computer_dices, left_dices, left_computer_dices, current_bet = bet(money_amount)
-            money = check_result(sum_left_dices, sum_left_computer_dices, left_dices, left_computer_dices, current_bet)
+            sum_left_dice, sum_left_computer_dice, left_dice, left_computer_dice, current_bet = bet(money_amount)
+            money = check_result(sum_left_dice, sum_left_computer_dice, left_dice, left_computer_dice, current_bet)
             money_amount += money
             players[player_name] += money_amount
         else:
@@ -560,3 +555,4 @@ while True:
     *************************************************************************************************
     *************************************************************************************************
     ''')
+
