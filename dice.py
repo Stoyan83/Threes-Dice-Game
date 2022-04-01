@@ -314,11 +314,11 @@ def bet(money_amount):
                     next = next_roll(len(roll_results))
                     dice_faces = ndice(*next)
                     current_roll = next
+                    if len(left_dice) < 4:
+                        ndice_aside(*left_dice)
 
-                    ndice_aside(*left_dice)
-
-                    print("*********************************************************")
-                    print("*********************************************************")
+                        print("*********************************************************")
+                        print("*********************************************************")
 
                     if sum_roll_result(left_computer_dice) + sum_roll_result(current_computer_roll) > 5:
                         new_dice, aside_computer = remove_smallest(current_computer_roll)
@@ -331,15 +331,16 @@ def bet(money_amount):
                         current_computer_roll = next_computer
                         computer_turns -= 1
 
-                        if len(left_computer_dice) != 4 and len(left_computer_dice) >= 1:
+                        if len(left_computer_dice) != 4 and len(left_computer_dice) > 1:
                             ndice_aside(*left_computer_dice)
                     
-                    
-                        print(
-                            f"======                  YOU HAVE {sum_roll_result(left_dice + current_roll)} POINTS AT THE MOMENT !                  ======")
-                        print(
-                            f"===== COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dice + current_computer_roll)} POINTS AND WAITING FOR YOUR TURNS !  ======")
                         if number_of_rolls > 0:
+
+                            print(
+                                f"======                  YOU HAVE {sum_roll_result(left_dice + current_roll)} POINTS AT THE MOMENT !       ======")
+                            print(
+                                f"=====          COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dice + current_computer_roll)} POINTS        !  ======")
+
                             print('''
                     ***********************************************************************
                     ==========      YOU CAN KEEP THAT SCORE. TYPE [DONE/D]       ==========
@@ -348,7 +349,7 @@ def bet(money_amount):
                     ***********************************************************************
                     ''')
                     if number_of_rolls == 0:
-                     
+                        ndice_aside(*left_dice +    current_roll)
                         print("=============         COMPUTER'S DICE     ============")
                         ndice_aside(*left_computer_dice + current_computer_roll)
                 
@@ -357,7 +358,7 @@ def bet(money_amount):
                         print(
                                 f"======                  YOU HAVE {sum_roll_result(left_dice + current_roll)} POINTS !                     ======")
                         print(
-                                f"======           COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dice + current_computer_roll)} POINTS !        ======")
+                                f"======            COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dice + current_computer_roll)} POINTS !        ======")
 
 
 
@@ -367,8 +368,7 @@ def bet(money_amount):
                             print("***********************************************************************")
                             print(
                                 f"======                  YOU HAVE {sum_roll_result(left_dice + current_roll)} POINTS !                     ======")
-                        # print(
-                        #     f"======           COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dice + current_computer_roll)} POINTS !        ======")
+                     
     return sum_roll_result(left_dice), sum_roll_result(
             left_computer_dice), left_dice, left_computer_dice, current_bet
 
@@ -410,20 +410,20 @@ def check_result(sum_left_dice, sum_left_computer_dice, left_dice, left_computer
             current_roll = roll_results
 
             print('''
-    ***********************************************************************
-    ***********************************************************************
+***********************************************************************
+***********************************************************************
 
             ''')
-
-            print("***********************************************************************")
-            print(f"======                  YOU HAVE {sum_roll_result(roll_results)} POINTS !                     ======")
-            print(f"=====           COMPUTER REACHED THE SCORE OF {sum_roll_result(computer_roll_results)} POINTS !         ======")
 
             print("Computer's turn ...")
             time.sleep(1)
             dice_faces = ndice(*computer_roll_results)
             current_computer_roll = computer_roll_results
 
+
+
+            print(f"======                  YOU HAVE {sum_roll_result(roll_results)} POINTS !                      ======")
+            print(f"=====           COMPUTER REACHED THE SCORE OF {sum_roll_result(computer_roll_results)} POINTS !         ======")
 
         
             if left_computer_dice == [6, 6, 6, 6, 6]:
@@ -445,7 +445,7 @@ def check_result(sum_left_dice, sum_left_computer_dice, left_dice, left_computer
             
             else:
         
-                print(f"THE SCORE IS TIED AGAIN. THERE IS NO WINNER U TAKE BACK ${current_bet}")
+                print(f"===== THE SCORE IS TIED AGAIN. THERE IS NO WINNER U TAKE BACK ${current_bet} ======")
 
     return money
 
@@ -565,4 +565,3 @@ while True:
     *************************************************************************************************
     *************************************************************************************************
     ''')
-
