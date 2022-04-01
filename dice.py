@@ -331,7 +331,7 @@ def bet(money_amount):
                         current_computer_roll = next_computer
                         computer_turns -= 1
 
-                        if len(left_computer_dice) != 5 and len(left_computer_dice) >= 1:
+                        if len(left_computer_dice) != 4 and len(left_computer_dice) >= 1:
                             ndice_aside(*left_computer_dice)
                     
                     
@@ -348,19 +348,29 @@ def bet(money_amount):
                     ***********************************************************************
                     ''')
                     if number_of_rolls == 0:
-                        if computer_turns != 0:
-                            print("=============         COMPUTER'S DICE     ============")
-                            ndice_aside(*left_computer_dice + current_computer_roll)
-                  
                      
+                        print("=============         COMPUTER'S DICE     ============")
+                        ndice_aside(*left_computer_dice + current_computer_roll)
+                
+
                         print("***********************************************************************")
                         print(
-                            f"======                  YOU HAVE {sum_roll_result(left_dice + current_roll)} POINTS !                     ======")
+                                f"======                  YOU HAVE {sum_roll_result(left_dice + current_roll)} POINTS !                     ======")
                         print(
-                            f"======           COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dice + current_computer_roll)} POINTS !        ======")
+                                f"======           COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dice + current_computer_roll)} POINTS !        ======")
 
+
+
+                    if computer_turns != 0:
+                       
+                        if number_of_rolls >= 1:
+                            print("***********************************************************************")
+                            print(
+                                f"======                  YOU HAVE {sum_roll_result(left_dice + current_roll)} POINTS !                     ======")
+                        # print(
+                        #     f"======           COMPUTER REACHED THE SCORE OF {sum_roll_result(left_computer_dice + current_computer_roll)} POINTS !        ======")
     return sum_roll_result(left_dice), sum_roll_result(
-        left_computer_dice), left_dice, left_computer_dice, current_bet
+            left_computer_dice), left_dice, left_computer_dice, current_bet
 
 
 def check_result(sum_left_dice, sum_left_computer_dice, left_dice, left_computer_dice, current_bet):
