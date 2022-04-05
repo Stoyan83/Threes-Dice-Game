@@ -331,7 +331,7 @@ def bet(money_amount):
                         current_computer_roll = next_computer
                         computer_turns -= 1
 
-                        if len(left_computer_dice) != 4 and len(left_computer_dice) > 1:
+                        if len(left_computer_dice) != 4 and len(left_computer_dice) > 0:
                             ndice_aside(*left_computer_dice)
                     
                         if number_of_rolls > 0:
