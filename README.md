@@ -1,5 +1,5 @@
 # Threes-Dice-Game
-Python console game Dice of threes
+Python console game Dice of threes. <br/>
 Writen at the very beginning of my learning, back then DRY principle was a stranger to me.
 
 
